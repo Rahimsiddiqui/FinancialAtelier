@@ -1,0 +1,17 @@
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+Allow: /features
+Allow: /about
+Allow: /contact
+
+# Block private app routes and auth
+Disallow: /dashboard
+Disallow: /auth
+Disallow: /api
+Disallow: /admin
+Disallow: /settings
+
+# Host and Sitemap location
+Sitemap: https://financial-atelier.vercel.app/sitemap.xml

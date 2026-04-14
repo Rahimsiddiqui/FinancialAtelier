@@ -1,0 +1,88 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@custom-variant dark (&:is(.dark, .dark *));
+
+@theme {
+  /* Custom Colors */
+  --color-primary: #1d4ed8;
+  --color-secondary: #1e293b;
+  --color-tertiary: #d16900;
+  --color-neutral: #f8fafc;
+  --color-border: #d1d5db;
+  --color-surface: #ffffff;
+  --color-surface-highlight: #f1f5f9;
+
+  /* Custom Fonts */
+  --font-manrope: "Manrope", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+/* Dark mode color overrides */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  html.dark {
+    color-scheme: dark;
+    --color-primary: #3b82f6;
+    --color-secondary: #e2e8f0;
+    --color-tertiary: #ff8a1a;
+    --color-neutral: #0f172a;
+    --color-border: #4a5568;
+    --color-surface: #1e293b;
+    --color-surface-highlight: #334155;
+  }
+
+  html.dark * {
+    --color-primary: #3b82f6;
+    --color-secondary: #e2e8f0;
+    --color-tertiary: #ff8a1a;
+    --color-neutral: #0f172a;
+    --color-border: #4a5568;
+    --color-surface: #1e293b;
+    --color-surface-highlight: #2c3746;
+  }
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+    font-family: var(--font-inter);
+    background: var(--color-neutral);
+    color: var(--color-secondary);
+    line-height: 1.5;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease;
+    scrollbar-gutter: stable;
+  }
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
