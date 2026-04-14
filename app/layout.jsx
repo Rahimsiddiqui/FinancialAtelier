@@ -1,13 +1,15 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
-// import { SpeedInsights } from "@vercel/speed-insights/react";
-import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
+import "./globals.css";
 
 export const metadata = {
   title: "Financial Atelier",
-  description: "Next.js migrated app",
+  description:
+    "Master your wealth with Financial Atelier. Experience an editorial approach to expense tracking, budgeting, and wealth building with precision-engineered tools. Join 120,000+ users designing a smarter financial future for free.",
 };
 
 export default function RootLayout({ children }) {
@@ -21,7 +23,8 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          {/* <SpeedInsights /> */}
+          <SpeedInsights />
+          <Analytics />
 
           <Navbar />
           <main>{children}</main>
