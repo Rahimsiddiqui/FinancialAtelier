@@ -20,8 +20,6 @@ export default function RootLayout({ children }) {
           src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad"
           strategy="afterInteractive"
         />
-
-        <meta name="google-site-verification" content="MVMXWTIYT_aa3IFuf7BceiWEqOrwv7uaU_x4cXgk41E" />
       </head>
       <body>
         <ThemeProvider>
