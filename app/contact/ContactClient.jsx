@@ -34,24 +34,29 @@ export default function ContactClient() {
 
     let interval;
 
-    const init = () => {
-      if (
-        window.__turnstileReady &&
-        window.turnstile &&
-        turnstileRef.current &&
-        !widgetIdRef.current
-      ) {
-        widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
-          sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY,
-          callback: () => setIsHuman(true),
-          "expired-callback": () => setIsHuman(false),
-          "error-callback": () => setIsHuman(false),
-        });
-
-        // STOP LOOP HERE
-        clearInterval(interval);
+const init = () => {
+  if (
+    window.turnstile &&
+    turnstileRef.current &&
+    !widgetIdRef.current
+  ) {
+    window.turnstile.ready(() => {
+      if (!widgetIdRef.current) {
+        widgetIdRef.current = window.turnstile.render(
+          turnstileRef.current,
+          {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY,
+            callback: () => setIsHuman(true),
+            "expired-callback": () => setIsHuman(false),
+            "error-callback": () => setIsHuman(false),
+          }
+        );
       }
-    };
+    });
+
+    clearInterval(interval);
+  }
+};
 
     interval = setInterval(init, 100);
 
