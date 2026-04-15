@@ -34,27 +34,20 @@ export default function ContactClient() {
 
     let interval;
 
-const init = () => {
-  if (
-    window.turnstile &&
-    turnstileRef.current &&
-    !widgetIdRef.current
-  ) {
-      if (!widgetIdRef.current) {
-        widgetIdRef.current = window.turnstile.render(
-          turnstileRef.current,
-          {
+    const init = () => {
+      if (window.turnstile && turnstileRef.current && !widgetIdRef.current) {
+        if (!widgetIdRef.current) {
+          widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
             sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY,
             callback: () => setIsHuman(true),
             "expired-callback": () => setIsHuman(false),
             "error-callback": () => setIsHuman(false),
-          }
-        );
-      }
+          });
+        }
 
-    clearInterval(interval);
-  }
-};
+        clearInterval(interval);
+      }
+    };
 
     interval = setInterval(init, 100);
 
@@ -131,7 +124,7 @@ const init = () => {
     <Boilerplate
       title="Let's Discuss Your"
       highlightedWord="Financial Future"
-      description="Personalized wealth management begins with a conversation. Reach out to our atelier team for bespoke financial strategies and advisory."
+      description="Have questions about wealth curation? Contact the Financial Atelier team today for personalized advisory, technical support, and bespoke financial strategies."
       includesCTA={false}
     >
       {/* Contact Section */}
