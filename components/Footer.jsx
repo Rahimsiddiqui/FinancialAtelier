@@ -30,7 +30,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-5 justify-center lg:justify-start items-center max-w-lg mx-auto lg:mx-0">
               <a
-                href="https://github.com/Rahimsiddiqui/financial-atelier"
+                href="https://github.com/Rahimsiddiqui/financialatelier"
                 target="_blank"
                 className="border border-border p-3 rounded-full transition-colors duration-200 hover:bg-secondary/5"
                 aria-label="GitHub"

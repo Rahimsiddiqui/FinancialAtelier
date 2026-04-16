@@ -22,7 +22,7 @@ export default function Page() {
         "The Financial Atelier is more than a platform; it is a digital boutique dedicated to the art of wealth preservation, where meticulous manual curation replaces automated noise.",
       url: "https://financialatelier.vercel.app",
       sameAs: [
-        "https://github.com/Rahimsiddiqui/Financial-Atelier",
+        "https://github.com/Rahimsiddiqui/financialatelier",
         "https://x.com/rahimdeveloper",
         "https://linkedin.com/in/rahimdeveloper",
       ],

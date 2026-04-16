@@ -32,8 +32,8 @@ Financial Atelier is a modern platform for managing, tracking, and analyzing per
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Rahimsiddiqui/financial-atelier.git
-cd financial-atelier
+git clone https://github.com/Rahimsiddiqui/financialatelier.git
+cd financialatelier
 ```
 
 2. Install dependencies:
