@@ -54,7 +54,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/rahimdeveloper"
+                href="https://www.linkedin.com/in/financialatelier"
                 target="_blank"
                 className="border border-border p-3 rounded-full transition-colors duration-200 hover:bg-secondary/5"
                 aria-label="LinkedIn"

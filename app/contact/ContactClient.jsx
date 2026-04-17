@@ -280,12 +280,12 @@ export default function ContactClient() {
                 <FaLinkedin className="w-5 h-5" />
               </div>
               <a
-                href="https://www.linkedin.com/in/rahimdeveloper"
+                href="https://www.linkedin.com/in/financialatelier"
                 rel="noopener noreferrer"
                 target="_blank"
                 className="text-secondary/80 text-[0.8rem] md:text-[0.85rem] font-manrope font-bold hover:text-primary transition-colors"
               >
-                linkedin.com/in/rahimdeveloper
+                linkedin.com/in/financialatelier
               </a>
             </m.li>
           </ul>

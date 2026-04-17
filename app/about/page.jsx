@@ -24,7 +24,7 @@ export default function Page() {
       sameAs: [
         "https://github.com/Rahimsiddiqui/financialatelier",
         "https://x.com/FinanceAtelier",
-        "https://linkedin.com/in/rahimdeveloper",
+        "https://linkedin.com/in/financialatelier",
       ],
     },
   };
