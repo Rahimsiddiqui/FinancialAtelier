@@ -10,7 +10,6 @@ export const metadata = {
   title: "Financial Atelier",
   description:
     "Master your wealth with Financial Atelier. Experience an editorial approach to expense tracking, budgeting, and wealth building with precision-engineered tools. Join 120,000+ users designing a smarter financial future for free.",
-  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }) {
