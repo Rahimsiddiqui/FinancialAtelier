@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
@@ -29,9 +27,7 @@ export default function RootLayout({ children }) {
           <SpeedInsights />
           <Analytics />
 
-          <Navbar />
           <main>{children}</main>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

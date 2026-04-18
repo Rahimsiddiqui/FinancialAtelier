@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 export const metadata = {
   title: "Financial Atelier | Contact Us",
   description:
@@ -20,7 +18,7 @@ export default function Page() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      email: "financial-atelier.support@gmail.com",
+      email: "financialatelier.support@gmail.com",
       availableLanguage: "en",
     },
   };
@@ -46,14 +44,12 @@ export default function Page() {
 
   return (
     <>
-      <Script
-        id="organization-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Script
-        id="breadcrumb-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />

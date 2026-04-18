@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 export const metadata = {
   title: "Financial Atelier | Expense Tracker & Budgeting Tool",
   description:
@@ -23,8 +21,7 @@ export default function Page() {
 
   return (
     <>
-      <Script
-        id="schema-website"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />

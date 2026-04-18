@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 export const metadata = {
   title: "Financial Atelier | About Us",
   description:
@@ -31,8 +29,7 @@ export default function Page() {
 
   return (
     <>
-      <Script
-        id="about-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
