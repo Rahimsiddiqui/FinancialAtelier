@@ -5,7 +5,7 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const mode = searchParams.get("mode") || "login"; // login | signup
 
-  const state = crypto.randomUUID();
+  const state = globalThis.crypto.randomUUID();
 
   // encode mode into state safely
   const stateData = Buffer.from(JSON.stringify({ state, mode })).toString(
