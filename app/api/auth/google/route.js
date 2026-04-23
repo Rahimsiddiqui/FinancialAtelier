@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import crypto from "crypto";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);

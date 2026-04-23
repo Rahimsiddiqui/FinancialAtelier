@@ -1,22 +1,32 @@
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
-export function proxy(req) {
+export async function proxy(req) {
   const token = req.cookies.get("token")?.value;
 
   if (!token) {
+    if (req.nextUrl.pathname.startsWith("/api")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     return NextResponse.redirect(new URL("/auth", req.url));
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const { payload } = await jwtVerify(token, secret);
 
-    //attach mode info usage
-    req.headers.set("x-user-mode", decoded.mode);
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-user-data", JSON.stringify(payload));
 
-    return NextResponse.next();
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
   } catch {
-    return NextResponse.redirect(new URL("/auth", req.url));
+    const response = NextResponse.redirect(new URL("/auth", req.url));
+    response.cookies.delete("token");
+    return response;
   }
 }
 
