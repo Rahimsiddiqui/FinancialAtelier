@@ -1,14 +1,17 @@
+// Components
+import Boilerplate from "@/components/Boilerplate";
+import FadeUp from "@/components/FadeUp";
+
+// Third party imports
 import Script from "next/script";
 
 export const metadata = {
-  title: "Financial Atelier | Careers",
+  title: "Careers",
   description: "Description",
   alternates: {
     canonical: "https://financialatelier.vercel.app/careers",
   },
 };
-
-import CareersClient from "./CareersClient";
 
 export default function Page() {
   const jsonLd = {
@@ -25,12 +28,18 @@ export default function Page() {
   return (
       <>
         <Script
-          id="schema-careers"
+          id="careers-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <CareersClient />
+        <Boilerplate
+          title="Title"
+          highlightedWord="Highlighted Word"
+          titleSuffix="Title Suffix"
+          description="Description"
+          includesCTA={false}
+       ></Boilerplate>
       </>
     );
 }

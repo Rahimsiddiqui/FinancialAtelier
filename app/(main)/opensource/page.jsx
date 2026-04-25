@@ -1,14 +1,17 @@
+// Components
+import Boilerplate from "@/components/Boilerplate";
+import FadeUp from "@/components/FadeUp";
+
+// Third party imports
 import Script from "next/script";
 
 export const metadata = {
-  title: "Financial Atelier | Opensource",
+  title: "Opensource",
   description: "Description",
   alternates: {
     canonical: "https://financialatelier.vercel.app/opensource",
   },
 };
-
-import OpensourceClient from "./OpensourceClient";
 
 export default function Page() {
   const jsonLd = {
@@ -25,12 +28,18 @@ export default function Page() {
   return (
       <>
         <Script
-          id="schema-opensource"
+          id="opensource-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <OpensourceClient />
+        <Boilerplate
+          title="Title"
+          highlightedWord="Highlighted Word"
+          titleSuffix="Title Suffix"
+          description="Description"
+          includesCTA={false}
+       ></Boilerplate>
       </>
     );
 }

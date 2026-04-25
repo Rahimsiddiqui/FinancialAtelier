@@ -1,5 +1,7 @@
-import DashboardClient from "./DashboardClient";
+// Components
+import Boilerplate from "@/components/Boilerplate";
+import FadeUp from "@/components/FadeUp";
 
 export default function Page() {
-  return <DashboardClient />;
+  return <div>HEI</div>;
 }

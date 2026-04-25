@@ -82,51 +82,169 @@ export default function Navbar() {
   };
 
   return (
-    <section className="fixed w-full h-20 bg-neutral flex items-center justify-between px-4 sm:px-7 md:px-10 lg:px-12 border-b border-border z-50 transition-colors duration-300 ease">
-      <div className="flex justify-center items-center gap-30">
-        <Link
-          href="/"
-          className="flex justify-center items-center text-lg sm:text-xl font-extrabold text-primary leading-tight font-manrope cursor-pointer gap-3 sm:gap-3.5"
-        >
-          <Wallet className="w-6 h-6 sm:w-7 sm:h-7" /> Financial Atelier
-        </Link>
-
-        <div className="hidden lg:flex justify-center items-center gap-10 text-sm">
+    <>
+      {isMenuOpen && (
+        <div className="absolute inset-0 min-w-screen min-h-screen backdrop-blur-md"></div>
+      )}
+      <section className="fixed w-full h-20 bg-neutral flex items-center justify-between px-4 sm:px-7 md:px-10 lg:px-12 border-b border-border z-50 transition-colors duration-300 ease">
+        <div className="flex justify-center items-center gap-30">
           <Link
-            href="/features"
-            className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
-              "/features",
-            )}`}
+            href="/"
+            className="flex justify-center items-center text-lg sm:text-xl font-extrabold text-primary leading-tight font-manrope cursor-pointer gap-3 sm:gap-3.5"
           >
-            Features
+            <Wallet className="w-6 h-6 sm:w-7 sm:h-7" /> Financial Atelier
           </Link>
 
-          <Link
-            href="/about"
-            className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
-              "/about",
-            )}`}
-          >
-            About
-          </Link>
+          <div className="hidden lg:flex justify-center items-center gap-10 text-sm">
+            <Link
+              href="/features"
+              className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
+                "/features",
+              )}`}
+            >
+              Features
+            </Link>
 
-          <Link
-            href="/contact"
-            className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
-              "/contact",
-            )}`}
-          >
-            Contact
-          </Link>
+            <Link
+              href="/about"
+              className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
+                "/about",
+              )}`}
+            >
+              About
+            </Link>
+
+            <Link
+              href="/contact"
+              className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
+                "/contact",
+              )}`}
+            >
+              Contact
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <div className="lg:hidden cursor-pointer flex items-center gap-5 sm:gap-7">
+        <div>
+          <div className="lg:hidden cursor-pointer flex items-center gap-5 sm:gap-7">
+            {themeMounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg hover:bg-secondary/10 transition-colors duration-200 text-secondary cursor-pointer"
+                aria-label="Toggle dark mode"
+              >
+                {theme === "light" ? (
+                  <Moon className="w-5 h-5" />
+                ) : (
+                  <Sun className="w-5 h-5" />
+                )}
+              </button>
+            )}
+
+            <button
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              className="inline-block cursor-pointer z-50 relative"
+              aria-label="Toggle menu"
+            >
+              {!isMenuOpen ? (
+                <Menu className="w-5 h-5 mr-1" />
+              ) : (
+                <X className="w-5 h-5 mr-1" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {portalTarget &&
+          createPortal(
+            <div
+              className="fixed inset-0 z-40 transition-opacity transition-colors duration-200 ease flex flex-col items-center justify-end bg-background/40 lg:hidden"
+              style={{
+                opacity: isMenuOpen ? 1 : 0,
+                pointerEvents: isMenuOpen ? "auto" : "none",
+              }}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <div
+                className="fixed z-50 left-0 bottom-0 w-full h-[70vh] border-t border-border rounded-t-[2.5rem] shadow-[0_-10px_30px_rgba(0,0,0,0.15)] text-center pointer-events-auto backdrop-blur-none flex flex-col justify-between"
+                ref={sheetRef}
+                onClick={(e) => e.stopPropagation()}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                style={{
+                  backgroundColor: "var(--color-neutral)",
+                  transform: isMenuOpen ? "translateY(0)" : "translateY(100%)",
+                  transition: "transform 0.3s ease-out",
+                }}
+              >
+                <p className="w-16 md:w-20 h-1.5 mt-8 mb-4 mx-auto rounded-xl bg-secondary/70"></p>
+
+                <ul className="flex-1 pt-2 flex flex-col text-base items-center justify-center gap-6">
+                  <li>
+                    <Link
+                      href="/features"
+                      className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
+                        "/features",
+                      )}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Features
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      href="/about"
+                      className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
+                        "/about",
+                      )}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      About
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      href="/contact"
+                      className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
+                        "/contact",
+                      )}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+
+                <div className="pt-6 pb-8 flex flex-col text-[1rem] items-center justify-center gap-4">
+                  <Link
+                    href="/auth?mode=login"
+                    className="px-6 py-3.5 text-secondary/80 hover:text-secondary font-medium transition-colors duration-200 rounded-lg leading-widest hover:bg-secondary/8 dark:hover:bg-surface"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    href="/auth?mode=signup"
+                    className="border-none rounded-lg px-12 md:px-14 py-3.5 text-[0.95rem] text-white dark:text-white/90 bg-linear-to-r from-blue-700/90 to-blue-700 hover:scale-[1.01] transition-transform font-bold font-manrope tracking-wide transition-colors duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )}
+
+        <div className="hidden lg:flex text-center items-center text-sm justify-center gap-4">
           {themeMounted && (
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-secondary/10 transition-colors duration-200 text-secondary cursor-pointer"
+              className="p-2 rounded-lg hover:bg-secondary/8 transition-[background-color] duration-200 text-secondary cursor-pointer"
               aria-label="Toggle dark mode"
             >
               {theme === "light" ? (
@@ -137,134 +255,21 @@ export default function Navbar() {
             </button>
           )}
 
-          <button
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="inline-block cursor-pointer z-50 relative"
-            aria-label="Toggle menu"
+          <Link
+            href="/auth?mode=login"
+            className="px-6 py-3.5 text-secondary/80 hover:text-secondary font-medium transition-colors duration-200 rounded-lg leading-widest hover:bg-secondary/8 dark:hover:bg-surface"
           >
-            {!isMenuOpen ? (
-              <Menu className="w-5 h-5 mr-1" />
-            ) : (
-              <X className="w-5 h-5 mr-1" />
-            )}
-          </button>
+            Login
+          </Link>
+
+          <Link
+            href="/auth?mode=signup"
+            className="border-none rounded-lg px-8 py-3.5 text-white dark:text-white/90 bg-linear-to-r from-blue-700/90 to-blue-700 hover:scale-[1.01] transition-transform font-bold font-manrope tracking-wide transition-colors duration-200"
+          >
+            Get Started
+          </Link>
         </div>
-      </div>
-
-      {portalTarget &&
-        createPortal(
-          <div
-            className="fixed inset-0 z-40 transition-opacity transition-colors duration-200 ease flex flex-col items-center justify-end bg-background/40 lg:hidden"
-            style={{
-              opacity: isMenuOpen ? 1 : 0,
-              pointerEvents: isMenuOpen ? "auto" : "none",
-            }}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <div
-              className="fixed z-50 left-0 bottom-0 w-full h-[70vh] border-t border-border rounded-t-[2.5rem] shadow-[0_-10px_30px_rgba(0,0,0,0.15)] text-center pointer-events-auto backdrop-blur-none flex flex-col justify-between"
-              ref={sheetRef}
-              onClick={(e) => e.stopPropagation()}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              style={{
-                backgroundColor: "var(--color-neutral)",
-                transform: isMenuOpen ? "translateY(0)" : "translateY(100%)",
-                transition: "transform 0.3s ease-out",
-              }}
-            >
-              <p className="w-16 md:w-20 h-1.5 mt-8 mb-4 mx-auto rounded-xl bg-secondary/70"></p>
-
-              <ul className="flex-1 pt-2 flex flex-col text-base items-center justify-center gap-6">
-                <li>
-                  <Link
-                    href="/features"
-                    className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
-                      "/features",
-                    )}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Features
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href="/about"
-                    className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
-                      "/about",
-                    )}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href="/contact"
-                    className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
-                      "/contact",
-                    )}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-
-              <div className="pt-6 pb-8 flex flex-col text-[1rem] items-center justify-center gap-4">
-                <Link
-                  href="/auth?mode=login"
-                  className="px-6 py-3.5 text-secondary/80 hover:text-secondary font-medium transition-colors duration-200 rounded-lg leading-widest hover:bg-secondary/8 dark:hover:bg-surface"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login
-                </Link>
-
-                <Link
-                  href="/auth?mode=signup"
-                  className="border-none rounded-lg px-12 md:px-14 py-3.5 text-[0.95rem] text-white dark:text-white/90 bg-linear-to-r from-blue-700/90 to-blue-700 hover:scale-[1.01] transition-transform font-bold font-manrope tracking-wide transition-colors duration-200"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          </div>,
-          document.body,
-        )}
-
-      <div className="hidden lg:flex text-center items-center text-sm justify-center gap-4">
-        {themeMounted && (
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-secondary/8 transition-[background-color] duration-200 text-secondary cursor-pointer"
-            aria-label="Toggle dark mode"
-          >
-            {theme === "light" ? (
-              <Moon className="w-5 h-5" />
-            ) : (
-              <Sun className="w-5 h-5" />
-            )}
-          </button>
-        )}
-
-        <Link
-          href="/auth?mode=login"
-          className="px-6 py-3.5 text-secondary/80 hover:text-secondary font-medium transition-colors duration-200 rounded-lg leading-widest hover:bg-secondary/8 dark:hover:bg-surface"
-        >
-          Login
-        </Link>
-
-        <Link
-          href="/auth?mode=signup"
-          className="border-none rounded-lg px-8 py-3.5 text-white dark:text-white/90 bg-linear-to-r from-blue-700/90 to-blue-700 hover:scale-[1.01] transition-transform font-bold font-manrope tracking-wide transition-colors duration-200"
-        >
-          Get Started
-        </Link>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

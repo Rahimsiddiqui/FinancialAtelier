@@ -1,4 +1,4 @@
-// Third party dependencies
+// Third party imports
 import { useEffect, useRef, useState } from "react";
 
 function easeOutCubic(t) {

@@ -1,14 +1,17 @@
+// Components
+import Boilerplate from "@/components/Boilerplate";
+import FadeUp from "@/components/FadeUp";
+
+// Third party imports
 import Script from "next/script";
 
 export const metadata = {
-  title: "Financial Atelier | Cookies",
+  title: "Cookies",
   description: "Description",
   alternates: {
     canonical: "https://financialatelier.vercel.app/cookies",
   },
 };
-
-import CookiesClient from "./CookiesClient";
 
 export default function Page() {
   const jsonLd = {
@@ -25,12 +28,18 @@ export default function Page() {
   return (
       <>
         <Script
-          id="schema-cookies"
+          id="cookies-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <CookiesClient />
+        <Boilerplate
+          title="Title"
+          highlightedWord="Highlighted Word"
+          titleSuffix="Title Suffix"
+          description="Description"
+          includesCTA={false}
+       ></Boilerplate>
       </>
     );
 }

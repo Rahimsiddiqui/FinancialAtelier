@@ -8,7 +8,7 @@ export const metadata = {
   metadataBase: new URL("https://financialatelier.vercel.app"),
   title: {
     default: "Financial Atelier | Expense Tracker & Budgeting Tool",
-    template: "%s | Financial Atelier",
+    template: "Financial Atelier | %s",
   },
   description:
     "Master your wealth with Financial Atelier. Experience an editorial approach to expense tracking, budgeting, and wealth building with precision-engineered tools.",
