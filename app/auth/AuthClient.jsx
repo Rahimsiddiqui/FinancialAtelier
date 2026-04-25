@@ -1,7 +1,6 @@
 "use client";
 
 // Third party imports
-import { motion } from "framer-motion";
 import {
   Check,
   Mail,
@@ -16,10 +15,10 @@ import { FcGoogle } from "react-icons/fc";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Animations
-import { fadeUp } from "@/lib/animations";
-import { GoEyeClosed } from "react-icons/go";
+import FadeUp from "@/components/FadeUp";
 
 const validModes = ["login", "signup"];
 
@@ -36,8 +35,8 @@ export default function AuthClient() {
 
   return (
     <div className="min-h-screen py-4 px-4 md:px-8 max-w-fit mx-auto bg-background text-neutral">
-      <motion.div
-        {...fadeUp(0.2)}
+      <FadeUp
+        delay={0.2}
         className="max-w-260 mx-auto grid grid-cols-1 md:grid-cols-2"
       >
         <div className="bg-blue-600 py-12 pb-23 md:pb-10 px-8 sm:px-10 lg:px-16 flex flex-col justify-between rounded-t-4xl md:rounded-l-4xl md:rounded-t-none gap-20">
@@ -286,7 +285,7 @@ export default function AuthClient() {
             </p>
           )}
         </div>
-      </motion.div>
+      </FadeUp>
     </div>
   );
 }
