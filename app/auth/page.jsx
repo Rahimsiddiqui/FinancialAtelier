@@ -177,19 +177,17 @@ function AuthContent() {
                   className="text-primary/90 hover:text-primary transition-colors duration-200 opacity-100 cursor-pointer font-semibold hover:underline!"
                 >
                   Sign Up
-                </Link>{" "}
-                Now!
+                </Link>
               </p>
             ) : (
               <p className="text-xs text-center font-medium text-secondary/70 mt-8">
-                Have an account?{" "}
+                Already have an account?{" "}
                 <Link
                   href="/auth?mode=login"
                   className="text-primary/90 hover:text-primary transition-colors duration-200 opacity-100 cursor-pointer font-semibold hover:underline!"
                 >
                   Login
-                </Link>{" "}
-                Now!
+                </Link>
               </p>
             )}
           </div>
