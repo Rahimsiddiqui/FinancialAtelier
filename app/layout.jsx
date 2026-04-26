@@ -49,6 +49,10 @@ export const metadata = {
     icon: "/favicon.png",
     apple: "/favicon.png",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 const inter = Inter({
@@ -71,6 +75,9 @@ export default function RootLayout({ children }) {
           src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad"
           strategy="afterInteractive"
         />
+
+        <meta charSet="UTF-8" />
+        <meta name="google-site-verification" content="DiZ7jvNnZfQuSf-65XGAw5wxlMRq92-dG2Gi0ET1Pj0" />
       </head>
       <body>
         <Providers>
