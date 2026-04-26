@@ -1,14 +1,51 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import clientPromise from "@/lib/mongodb";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
+// Initialize Ratelimit
+const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
+  ? new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    })
+  : null;
+
+const ratelimit = redis 
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(5, "10 m"), // 5 signups per 10 mins per IP
+    })
+  : null;
 
 export async function POST(req) {
   try {
+    // 1. Rate Limiting
+    if (ratelimit) {
+      const ip = req.headers.get("x-forwarded-for") || "127.0.0.1";
+      const { success } = await ratelimit.limit(`signup_${ip}`);
+      if (!success) {
+        return NextResponse.json(
+          { message: "Too many requests. Try again later." },
+          { status: 429 }
+        );
+      }
+    }
+
     const { name, email, password } = await req.json();
 
     if (!name || !email || !password) {
       return NextResponse.json(
         { message: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // Basic password strength check
+    if (password.length < 8) {
+      return NextResponse.json(
+        { message: "Password must be at least 8 characters" },
         { status: 400 }
       );
     }
@@ -21,24 +58,13 @@ export async function POST(req) {
     const existingUser = await users.findOne({ email });
 
     if (existingUser) {
-      if (existingUser.password) {
-        return NextResponse.json(
-          { message: "User already exists" },
-          { status: 400 }
-        );
-      } else {
-        // User exists via OAuth (no password)
-        // Update user with password (account linking)
-        const hashedPassword = await bcrypt.hash(password, 12);
-        await users.updateOne(
-          { email },
-          { $set: { password: hashedPassword } }
-        );
-        return NextResponse.json(
-          { message: "Password set for existing account" },
-          { status: 201 }
-        );
-      }
+      // Never allow setting password on existing account via signup route.
+      // If user exists (OAuth or Email), they should use Login.
+      // This prevents "Account Takeover" if email isn't verified.
+      return NextResponse.json(
+        { message: "Account already exists. Please sign in." },
+        { status: 400 }
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -47,11 +73,13 @@ export async function POST(req) {
       name,
       email,
       password: hashedPassword,
+      image: null,
+      emailVerified: null,
       createdAt: new Date(),
     });
 
     return NextResponse.json(
-      { message: "User created", id: result.insertedId },
+      { message: "User created successfully", id: result.insertedId },
       { status: 201 }
     );
   } catch (error) {
