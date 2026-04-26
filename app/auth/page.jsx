@@ -185,11 +185,7 @@ function AuthContent() {
                   className="text-primary/90 hover:text-primary transition-colors duration-200 opacity-100 cursor-pointer font-semibold hover:underline!"
                 >
                   Sign Up
-<<<<<<< HEAD
                 </Link>{" "}
-=======
-                </Link>
->>>>>>> 3389d425472e21be621e60a16ed5081035eda7c0
               </p>
             ) : (
               <p className="text-xs text-center font-medium text-secondary/70 mt-8">
