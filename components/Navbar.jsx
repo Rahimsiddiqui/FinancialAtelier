@@ -97,7 +97,7 @@ export default function Navbar() {
         <div className="absolute inset-0 min-w-screen min-h-screen backdrop-blur-md"></div>
       )}
       <section className="fixed w-full mt-4 sm:mt-5 px-4 min-[400px]:px-7 md:px-10 xl:px-0 z-50 transition-colors duration-300 ease">
-        <div className="w-full mx-auto lg:max-w-6xl bg-neutral/80 border border-border p-4 min-[400px]:px-10 md:px-12 lg:px-14 rounded-full flex items-center justify-between backdrop-blur-sm transition-colors duration-300 ease">
+        <div className="w-full mx-auto lg:max-w-6xl bg-neutral/80 border border-border/80 dark:border-border/70 p-4 min-[400px]:px-10 md:px-12 lg:px-14 rounded-full flex items-center justify-between backdrop-blur-sm transition-colors duration-300 ease">
           <div className="flex justify-center items-center gap-10 min-[1200px]:gap-30">
             <Link
               href="/"

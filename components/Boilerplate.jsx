@@ -34,7 +34,7 @@ const Boilerplate = ({
             {badge && (
               <FadeUp
                 as="span"
-                className="text-[0.7rem] md:text-xs tracking-widest font-black font-manrope py-2 px-4 bg-primary/10 text-primary rounded-full mb-7 lg:mb-6 inline-block uppercase"
+                className="text-[0.7rem] md:text-xs tracking-widest font-black font-manrope py-2 px-4 bg-primary/10 text-primary rounded-full mb-7 xl:mb-9 inline-block uppercase"
               >
                 {badge}
               </FadeUp>
@@ -43,7 +43,7 @@ const Boilerplate = ({
             <FadeUp
               delay={badge ? 0.2 : 0}
               as="h1"
-              className={`text-4xl md:text-5xl leading-tight font-black font-manrope max-w-lg ${!landingPage ? "mx-auto" : ""}`}
+              className={`text-4xl md:text-5xl lg:text-[3.2rem] leading-tight font-black font-manrope max-w-lg ${!landingPage ? "mx-auto" : ""}`}
             >
               {title} <span className="text-primary">{highlightedWord}</span>{" "}
               {titleSuffix}
@@ -52,7 +52,7 @@ const Boilerplate = ({
             <FadeUp
               delay={0.4}
               as="p"
-              className={`mt-8 sm:mt-9 ${landingPage ? "mb-9" : "mb-12"} text-base md:text-lg text-secondary/80 max-w-xl mx-auto lg:mx-auto`}
+              className={`mt-8 sm:mt-9 lg:mt-10 ${landingPage ? "mb-9 lg:mb-10" : "mb-12"} text-base md:text-lg text-secondary/80 max-w-xl mx-auto lg:mx-auto`}
             >
               {description}
             </FadeUp>

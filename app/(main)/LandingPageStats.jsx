@@ -29,7 +29,7 @@ export default function LandingPageStats() {
   }, []);
 
   return (
-    <section className="mx-auto max-w-md md:max-w-lg lg:max-w-6xl px-4 text-center sm:pt-5 lg:pt-7 lg:px-15 xl:px-0">
+    <section className="mx-auto max-w-md md:max-w-2xl lg:max-w-6xl px-4 text-center sm:pt-5 lg:pt-7 lg:px-15 xl:px-0">
       <p className="w-full bg-border h-px"></p>
       <ul
         ref={statsRef}
@@ -65,7 +65,7 @@ export default function LandingPageStats() {
           </span>
         </li>
 
-        <li className="text-secondary py-2 px-4 flex flex-col items-center justify-center">
+        <li className="text-secondary py-2 px-4 flex flex-col items-center justify-center sm:col-span-2 sm:mt-2 md:col-span-1 md:mt-0">
           <span className="font-manrope text-4xl lg:text-5xl text-primary font-extrabold leading-widest">
             <CountUp
               end={91.7}
