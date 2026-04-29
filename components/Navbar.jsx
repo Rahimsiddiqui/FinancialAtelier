@@ -5,11 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import { Wallet, Menu, X, Moon, Sun } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import Image from "next/image";
 
-// Components
+// Theme Context
 import { useTheme } from "@/context/ThemeContext";
 
 function useIsDesktop() {
@@ -131,6 +131,15 @@ export default function Navbar() {
               )}`}
             >
               Contact
+            </Link>
+
+            <Link
+              href="/contact"
+              className={`font-medium transition-colors duration-200 tracking-wide ${getClass(
+                "/terms",
+              )}`}
+            >
+              Terms
             </Link>
           </div>
         </div>
