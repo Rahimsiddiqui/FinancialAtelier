@@ -133,7 +133,7 @@ const Boilerplate = ({
         {includesCTA && (
           // Final CTA Section
           <section className="container mx-auto max-w-xl md:max-w-3xl lg:max-w-7xl text-center px-4 mt-20 md:mt-24 lg:px-15">
-            <FadeUp className="max-w-6xl overflow-hidden bg-linear-to-r from-blue-700/90 to-blue-700 rounded-3xl p-12 md:p-16 lg:p-20 mx-auto relative flex flex-col items-center gap-6 text-white dark:text-white/90">
+            <FadeUp className="max-w-6xl overflow-hidden bg-linear-to-r from-blue-700/90 to-blue-700 rounded-3xl p-12 md:p-16 lg:pt-20 mx-auto relative flex flex-col items-center gap-6 text-white dark:text-white/90">
               <h2 className="font-extrabold text-3xl sm:text-4xl md:text-5xl font-manrope leading-tight">
                 {CTATitle}
               </h2>
