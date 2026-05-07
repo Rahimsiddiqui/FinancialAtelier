@@ -5,14 +5,15 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 // Initialize Ratelimit
-const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
-  ? new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN,
-    })
-  : null;
+const redis =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN,
+      })
+    : null;
 
-const ratelimit = redis 
+const ratelimit = redis
   ? new Ratelimit({
       redis,
       limiter: Ratelimit.slidingWindow(5, "10 m"), // 5 signups per 10 mins per IP
@@ -28,7 +29,7 @@ export async function POST(req) {
       if (!success) {
         return NextResponse.json(
           { message: "Too many requests. Try again later." },
-          { status: 429 }
+          { status: 429 },
         );
       }
     }
@@ -38,7 +39,7 @@ export async function POST(req) {
     if (!name || !email || !password) {
       return NextResponse.json(
         { message: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -46,7 +47,7 @@ export async function POST(req) {
     if (password.length < 8) {
       return NextResponse.json(
         { message: "Password must be at least 8 characters" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -63,30 +64,45 @@ export async function POST(req) {
       // This prevents "Account Takeover" if email isn't verified.
       return NextResponse.json(
         { message: "Account already exists. Please sign in." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const result = await users.insertOne({
-      name,
-      email,
-      password: hashedPassword,
-      image: null,
-      emailVerified: null,
-      createdAt: new Date(),
-    });
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+
+    const pendingUsers = db.collection("pending_users");
+
+    // Upsert pending user
+    await pendingUsers.updateOne(
+      { email },
+      {
+        $set: {
+          name,
+          email,
+          password: hashedPassword,
+          code,
+          expiresAt,
+          createdAt: new Date(),
+        },
+      },
+      { upsert: true },
+    );
+
+    // In a real app, send email here. For now, log to console.
+    console.log(`Verification code for ${email}: ${code}`);
 
     return NextResponse.json(
-      { message: "User created successfully", id: result.insertedId },
-      { status: 201 }
+      { message: "Verification code sent to email", email },
+      { status: 200 },
     );
   } catch (error) {
     console.error("Signup error:", error);
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

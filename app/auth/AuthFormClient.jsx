@@ -2,13 +2,13 @@
 
 // Third party imports
 import { useState, useEffect, useRef } from "react";
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import { BsPerson } from "react-icons/bs";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export default function AuthFormClient({ mode }) {
+export default function AuthFormClient({ mode, onSignupSuccess }) {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isHuman, setIsHuman] = useState(false);
@@ -103,12 +103,9 @@ export default function AuthFormClient({ mode }) {
         if (!res.ok) {
           setError(data.message || "Signup failed");
         } else {
-          // Auto login after signup
-          await signIn("credentials", {
-            email,
-            password,
-            callbackUrl: "/dashboard",
-          });
+          if (onSignupSuccess) {
+            onSignupSuccess({ name, email, password });
+          }
         }
       }
     } catch (err) {
@@ -217,17 +214,32 @@ export default function AuthFormClient({ mode }) {
 
       <button
         disabled={isBtnDisabled}
-        className={`border-none flex justify-center gap-2 items-center rounded-lg px-12 md:px-14 py-3.5 text-[0.95rem] text-white dark:text-white/90 bg-linear-to-r from-blue-700/90 to-blue-700 transition-transform font-bold font-manrope tracking-wide transition-colors duration-200 group ${isBtnDisabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer hover:scale-[1.01]"} ${mode === "signup" ? "mt-0" : "mt-2"}`}
+        className={`border-none flex justify-center items-center rounded-lg px-12 md:px-14 py-3.5 text-[0.95rem] text-white dark:text-white/90 bg-linear-to-r from-blue-700/90 to-blue-700 transition-transform font-bold font-manrope tracking-wide transition-colors duration-200 group ${isBtnDisabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer hover:scale-[1.01]"} ${mode === "signup" ? "mt-0" : "mt-2"} ${isLoading ? "gap-2.5" : "gap-2.5"}`}
       >
-        {isLoading
-          ? "Processing..."
-          : mode === "login"
-            ? "Sign In"
-            : "Create Account"}
+        {isLoading ? (
+          mode === "login" ? (
+            <>
+              Signing In
+              <Loader2 size={20} className="animate-spin" />
+            </>
+          ) : (
+            <>
+              Creating Account
+              <Loader2 size={20} className="animate-spin" />
+            </>
+          )
+        ) : mode === "login" ? (
+          "Sign In"
+        ) : (
+          "Create Account"
+        )}
+
         {!isLoading && (
           <span>
             <ArrowRight
-              className={`w-5 h-5 ${isBtnDisabled ? "" : "group-hover:translate-x-1"} transition-transform duration-200`}
+              className={`w-5 h-5 ${
+                isBtnDisabled ? "" : "group-hover:translate-x-1"
+              } transition-transform duration-200`}
             />
           </span>
         )}
