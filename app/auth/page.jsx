@@ -29,7 +29,7 @@ function AuthContent() {
   };
 
   return (
-    <div className="min-h-screen py-8 px-6 md:px-8 max-w-fit mx-auto bg-background text-neutral">
+    <div className="min-h-screen py-8 px-4 md:px-8 max-w-fit mx-auto bg-background text-neutral">
       <FadeUp
         delay={0.2}
         className="max-w-260 mx-auto grid grid-cols-1 md:grid-cols-2"
@@ -114,7 +114,7 @@ function AuthContent() {
           layout
           transition={{ type: "spring", stiffness: 120, damping: 18 }}
           className={`bg-surface text-secondary pt-18 pb-8 px-6 sm:px-10 lg:px-14 flex flex-col
-          rounded-4xl md:rounded-b-none w-[95vw] min-[420px]:w-[85vw] md:w-auto
+          rounded-4xl md:rounded-b-none w-full min-[420px]:w-[85vw] md:w-auto
           ${
             isLogin
               ? "md:order-2 md:rounded-r-4xl md:rounded-l-none"
