@@ -93,11 +93,11 @@ export default function Navbar() {
 
   return (
     <>
-      {isMenuOpen && (
-        <div className="absolute inset-0 min-w-screen min-h-screen backdrop-blur-md"></div>
+      {isMenuOpen && !isDesktop && (
+        <div className="fixed inset-0 z-10 min-w-screen min-h-screen backdrop-blur-md"></div>
       )}
-      <section className="fixed w-full mt-4 sm:mt-4.5 px-4 min-[400px]:px-7 md:px-10 xl:px-0 z-50 transition-colors duration-300 ease">
-        <div className="w-full mx-auto lg:max-w-6xl bg-neutral/80 border border-border/80 dark:border-border/70 p-4 min-[400px]:px-10 md:px-12 lg:px-14 rounded-full flex items-center justify-between backdrop-blur-sm transition-colors duration-300 ease">
+      <section className="fixed w-full mt-4 sm:mt-4.5 px-4 min-[400px]:px-5 min-[450px]:px-7 md:px-10 xl:px-0 z-50 transition-colors duration-300 ease">
+        <div className="w-full mx-auto lg:max-w-6xl bg-neutral/80 border border-border/80 dark:border-border/70 p-4 min-[400px]:px-10 md:px-12 lg:px-14 rounded-full flex items-center justify-between backdrop-blur-sm transition-colors transition-shadow duration-300 ease shadow-lg shadow-neutral/80-inverse dark:shadow-md dark:shadow-surface">
           <div className="flex justify-center items-center gap-10 min-[1200px]:gap-30">
             <Link
               href="/"
@@ -200,7 +200,7 @@ export default function Navbar() {
                     transition: "transform 0.3s ease-out",
                   }}
                 >
-                  <p className="w-16 md:w-20 h-1.5 mt-8 mb-4 mx-auto rounded-xl bg-secondary/70"></p>
+                  <p className="w-16 md:w-20 min-h-1.5 mt-8 mb-4 mx-auto rounded-xl bg-secondary/70"></p>
 
                   <ul className="flex-1 pt-2 flex flex-col text-base items-center justify-center gap-6">
                     <li>
